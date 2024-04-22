@@ -42,39 +42,46 @@ gopuby <filepath>
 ```
 Alternatively you can run `gopuby` and once open hit `space` and type `:open <filepath>`
 
-### Hotkeys
+# Commander
 
-#### Opening and Loading EPUB Files
-| Hotkey | Action                  | Description                                          |
-|--------|-------------------------|------------------------------------------------------|
-| Space  | Open Command Bar        | Activate the command bar to input commands.          |
-| `:open <filepath>` | Open File | Open an EPUB file specified by the file path.    |
-| `:list` | List Books in Library | Lists books in library that have been previously opened |
+To open a commander you can use the `spacebar` key on your keyboard
 
-#### Reading and Navigation
-| Hotkey | Action                  | Description                                          |
-|--------|-------------------------|------------------------------------------------------|
-| ↑              | Scroll Up               | Scroll up through the EPUB content.          |
-| ↓              | Scroll Down             | Scroll down through the EPUB content.        |
-| →              | Navigate Forward        | Go to the next section.                      |
-| ←              | Navigate Backward       | Go to the previous section.                  |
-| SHIFT + →      | Navigate Forward        | Go to the next section.                      |
-| SHIFT + ←      | Navigate Backward       | Go to the previous section.                  |
+## Commander Commands
+| Command | Description |
+|--------|---------|
+| `:open(filepath)` | Open an EPUB file specified by the file path. |
+| `:list` | Lists books in library that have been previously opened |
+| `:remove(input)` | Removes book from library |
 
-#### Table of Contents Interaction
-| Hotkey | Action                  | Description                                          |
-|--------|-------------------------|------------------------------------------------------|
-| o      | Toggle Sidebar          | Show or hide the sidebar with the table of contents. |
-| p      | Focus on Sidebar        | Switch focus to the sidebar.                         |
-| ↑/↓    | Navigate Sidebar        | Move up or down in the table of contents.            |
-| c      | Mark as Read/Unread     | Toggle the read status of the selected section.      |
+Any command listed below in the hotkeys can be used in the **Commander**
 
-#### Command Bar Features
-| Hotkey | Action                  | Description                                          |
-|--------|-------------------------|------------------------------------------------------|
-| Space  | Open Command Bar        | Activate the command bar to input commands.          |
-| `sx`   | Jump to Section         | Input `sx` followed by the section number or name.   |
-| `/`    | Search in Page          | Search for text within the current page.             |
-| `//`   | Search in Whole Book    | Search for text across the entire book.              |
+## Hotkeys
+
+
+### Reading and Navigation
+| Hotkey    | Action         | Description                           |
+| --------- | -------------- | ------------------------------------- |
+| ↑         | `:scrollUp`    | Scroll up through the EPUB content.   |
+| ↓         | `:scrollDown`  | Scroll down through the EPUB content. |
+| →         | `:nextSection` | Go to the next section.               |
+| ←         | `:prevSection` | Go to the previous section.           |
+| SHIFT + → | `:nextChapter` | Go to the next chapter.               |
+| SHIFT + ← | `:prevChapter` | Go to the previous section.           |
+
+### Table of Contents Interaction
+| Hotkey | Action                        | Description                                          |
+| ------ | ----------------------------- | ---------------------------------------------------- |
+| o      | `:toggleToC`                  | Show or hide the sidebar with the table of contents. |
+| p      | `:toggleFocus`                | Switch focus to the sidebar.                         |
+| ↑/↓    | `:scrollUpToc/:scrollDownToc` | Move up or down in the table of contents.            |
+| c      | `:toggleRead(section)`        | Toggle the read status of the selected section.      |
+
+### Command Bar Features
+| Hotkey | Action                    | Description                                        |
+| ------ | ------------------------- | -------------------------------------------------- |
+| Space  | Open Command Bar          | Activate the command bar to input commands.        |
+| `sx`   | `:jumpToSection(section)` | Input `sx` followed by the section number or name. |
+| `/`    | `:find(input)`            | Search for text in the whole book                  |
+| `//`   | `:findChapter(input)`     | Search for text in the current chapter             |
 
 
