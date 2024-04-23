@@ -1,0 +1,7 @@
+# Ignore epub files
+books
+*.epub
+
+# Ignore go work directory
+go.work
+
