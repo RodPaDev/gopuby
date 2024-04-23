@@ -63,9 +63,8 @@ func (hp *HtmlPage) BuildText(n *html.Node, inPreCode bool, currentIndex *int) {
 }
 
 func (hp *HtmlPage) ConvertHTMLToText(htmlNode *html.Node) {
-	var htmlPage HtmlPage
 	currentIndex := 0
-	htmlPage.BuildText(htmlNode, false, &currentIndex)
+	hp.BuildText(htmlNode, false, &currentIndex)
 }
 
 func ParseHtml(path string) (string, error) {
