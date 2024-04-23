@@ -2,14 +2,15 @@ Immediate
 - [x] Manage epubs by copying and storing
 - [x] Unzip epubs
 - [x] Parse HTML to properly formatted text
-- [ ] Manage screen by usage of ASCII escape codes
-- [ ] Render text to screen starting from the top
-- [ ] Implement Commander system
-- [ ] 
-
-
-
-Later Stage:
-- [ ] Add support for links
-- [ ] Add support for images (iTerm2) only
-
+  - [ ] Add support for links
+  - [ ] Add support for images (iTerm2) only
+- [x] Render text using termbox
+- [ ] Finish ePub Manager to manage loading of chapters
+- [x] Hotkey Basic System
+- [ ] Command should use ePub Manager to load chapters on the fly
+- [ ] Scroll through a book completely
+- [ ] Implement Commander Bottom Bar
+- [ ] Implement ToC Screen
+- [ ] Implement Config Manager
+- [ ] Add Database to Keep track of read books
+- [ ] Implement open, list and other commands

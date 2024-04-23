@@ -1,4 +1,4 @@
-# GoPuby - Terminal EPUB Reader
+****# GoPuby - Terminal EPUB Reader
 
 ### Description
 GoPuby is a terminal-based EPUB reader designed to allow users to read and interact with EPUB files directly in their terminal. The application supports text and image rendering and provides a seamless, scroll-based reading experience. It is built with Go and designed to be lightweight and highly customizable.
@@ -47,11 +47,11 @@ Alternatively you can run `gopuby` and once open hit `space` and type `:open <fi
 To open a commander you can use the `spacebar` key on your keyboard
 
 ## Commander Commands
-| Command | Description |
-|--------|---------|
-| `:open(filepath)` | Open an EPUB file specified by the file path. |
-| `:list` | Lists books in library that have been previously opened |
-| `:remove(input)` | Removes book from library |
+| Command           | Description                                             |
+| ----------------- | ------------------------------------------------------- |
+| `:open(filepath)` | Open an EPUB file specified by the file path.           |
+| `:list`           | Lists books in library that have been previously opened |
+| `:remove(input)`  | Removes book from library                               |
 
 Any command listed below in the hotkeys can be used in the **Commander**
 
@@ -69,19 +69,16 @@ Any command listed below in the hotkeys can be used in the **Commander**
 | SHIFT + ← | `:prevChapter` | Go to the previous section.           |
 
 ### Table of Contents Interaction
-| Hotkey | Action                        | Description                                          |
-| ------ | ----------------------------- | ---------------------------------------------------- |
-| o      | `:toggleToC`                  | Show or hide the sidebar with the table of contents. |
-| p      | `:toggleFocus`                | Switch focus to the sidebar.                         |
-| ↑/↓    | `:scrollUpToc/:scrollDownToc` | Move up or down in the table of contents.            |
-| c      | `:toggleRead(section)`        | Toggle the read status of the selected section.      |
+| Hotkey | Action                 | Description                                          |
+| ------ | ---------------------- | ---------------------------------------------------- |
+| t      | `:toggleToC`           | Show or hide the sidebar with the table of contents. |
+| r      | `:toggleRead(section)` | Toggle the read status of the selected section.      |
 
 ### Command Bar Features
-| Hotkey | Action                    | Description                                        |
-| ------ | ------------------------- | -------------------------------------------------- |
-| Space  | Open Command Bar          | Activate the command bar to input commands.        |
-| `sx`   | `:jumpToSection(section)` | Input `sx` followed by the section number or name. |
-| `/`    | `:find(input)`            | Search for text in the whole book                  |
-| `//`   | `:findChapter(input)`     | Search for text in the current chapter             |
+| Hotkey | Action                    | Description                                       |
+| ------ | ------------------------- | ------------------------------------------------- |
+| Space  | Open Command Bar          | Activate the command bar to input commands.       |
+| `s`    | `:jumpToSection(section)` | Input `s` followed by the section number or name. |
+| `/`    | `:find(input)`            | Search for text in the whole book                 |
 
 
