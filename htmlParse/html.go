@@ -29,7 +29,9 @@ func (hp *HtmlPage) BuildText(n *html.Node, inPreCode bool, currentIndex *int) {
 		} else {
 			// Append the text to the last element in the body
 			renderedText := RenderedText{&strings.Builder{}, n.Parent.Data}
+
 			renderedText.Text.WriteString(n.Data)
+
 			hp.Body = append(hp.Body, renderedText)
 			*currentIndex += 1
 		}

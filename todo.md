@@ -5,11 +5,11 @@ Immediate
   - [ ] Add support for links
   - [ ] Add support for images (iTerm2) only
 - [x] Render text using termbox
-- [ ] Finish ePub Manager to manage loading of chapters
+- [x] Load ToC into a struct
 - [x] Hotkey Basic System
+- [ ] Implement Commander Bottom Bar
 - [ ] Command should use ePub Manager to load chapters on the fly
 - [ ] Scroll through a book completely
-- [ ] Implement Commander Bottom Bar
 - [ ] Implement ToC Screen
 - [ ] Implement Config Manager
 - [ ] Add Database to Keep track of read books

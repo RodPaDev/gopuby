@@ -1,8 +1,10 @@
 package commander
 
 import (
-	"github.com/nsf/termbox-go"
 	"gopuby/renderer"
+	"slices"
+
+	"github.com/nsf/termbox-go"
 )
 
 const (
@@ -34,11 +36,6 @@ var SpecialKeyBindings = map[termbox.Key]string{
 	termbox.KeyArrowRight: NextSection,
 	termbox.KeyPgup:       NextChapter,
 	termbox.KeyPgdn:       PrevChapter,
-	't':                   ToggleToC,
-	'q':                   Quit,
-	'r':                   ToggleMarkRead,
-	's':                   JumpToSection,
-	'/':                   Find,
 }
 
 var KeyBindings = map[rune]string{
@@ -50,7 +47,9 @@ var KeyBindings = map[rune]string{
 }
 
 type Commander struct {
-	Renderer renderer.Renderer
+	Renderer   renderer.Renderer
+	isOpen     bool
+	ParsedText string
 }
 
 func New() *Commander {
@@ -67,12 +66,21 @@ func New() *Commander {
 }
 
 func (c *Commander) executeCommand(command string, arg string) {
+
+	// not sure if this is the best approach but we will see
+	skipOnOpen := []string{ScrollUp, ScrollDown}
+
+	if c.isOpen && slices.Contains(skipOnOpen, command) {
+		return
+	}
+
 	switch command {
 	case ScrollUp:
-		// c.renderer.ScrollUp(&arg)
+		c.Renderer.ScrollUp(&c.ParsedText)
 	case ScrollDown:
-		// c.renderer.ScrollDown(&arg)
-
+		c.Renderer.ScrollDown(&c.ParsedText)
+	case Commmander:
+		c.ToggleCommandBar()
 	}
 }
 
@@ -82,6 +90,7 @@ eventLoop:
 	for {
 		ev := termbox.PollEvent()
 		if ev.Type == termbox.EventKey {
+
 			if ev.Ch != 0 { // Handle character keys
 				if command, ok := KeyBindings[ev.Ch]; ok {
 					if command == Quit {

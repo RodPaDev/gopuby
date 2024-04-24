@@ -15,20 +15,29 @@ func New() *Renderer {
 
 func (r *Renderer) Render(text *string) {
 	cols, rows := termbox.Size()
-
 	// Clear the screen
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
 
 	// Calculate the indices for the current page
 	pageSize := rows * cols
 	currentPageStart := (r.currentPage - 1) * pageSize
+
+	// Make sure we start within the text length
+	if currentPageStart >= len(*text) {
+		termbox.Flush() // Nothing more to display
+		return
+	}
+
 	currentPageEnd := currentPageStart + pageSize
+	if currentPageEnd > len(*text) {
+		currentPageEnd = len(*text)
+	}
 
 	currCol, currRow := 0, 0
 
-	for i := currentPageStart; i < len(*text) && i < currentPageEnd; i++ {
-		char := rune((*text)[i])
+	r.renderBuffer = (*text)[currentPageStart:currentPageEnd]
 
+	for _, char := range (*text)[currentPageStart:currentPageEnd] {
 		if char == '\n' {
 			currRow++
 			currCol = 0
@@ -38,9 +47,6 @@ func (r *Renderer) Render(text *string) {
 			continue
 		}
 
-		termbox.SetCell(currCol, currRow, char, termbox.ColorWhite, termbox.ColorDefault)
-		currCol++
-
 		if currCol >= cols {
 			currRow++
 			currCol = 0
@@ -48,10 +54,12 @@ func (r *Renderer) Render(text *string) {
 				break
 			}
 		}
+
+		termbox.SetCell(currCol, currRow, char, termbox.ColorWhite, termbox.ColorDefault)
+		currCol++
 	}
 
 	termbox.Flush()
-
 }
 
 func (r *Renderer) ScrollUp(text *string) {
@@ -67,6 +75,6 @@ func (r *Renderer) ScrollDown(text *string) {
 	r.Render(text)
 }
 
-func (r *Renderer) GetBuffer() string {
-	return r.renderBuffer
+func (r *Renderer) GetBuffer() *string {
+    return &r.renderBuffer
 }
