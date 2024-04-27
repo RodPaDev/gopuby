@@ -1,6 +1,7 @@
 package commander
 
 import (
+	"bytes"
 	"github.com/nsf/termbox-go"
 )
 
@@ -46,4 +47,12 @@ func (c *Commander) ClearCommandBar() {
 func GetCommandBarInputPosition() (int, int) {
 	_, rows := termbox.Size()
 	return 0, rows - 1
+}
+
+func DrawBuffer(buf *bytes.Buffer, x, y int) {
+	str := buf.String()
+	for i, ch := range str {
+		termbox.SetCell(x+i, y, rune(ch), termbox.ColorWhite, termbox.ColorDefault)
+	}
+	termbox.Flush()
 }

@@ -60,3 +60,8 @@ func (i *Input) GetInputAtPos(pos int) string {
 func (i *Input) GetRuneCount() int {
 	return i.inputBuffer.runeCount
 }
+
+func (i *Input) ClearBuffer() {
+	i.inputBuffer.buffer.Reset()
+	i.inputBuffer.runeCount = 0
+}
