@@ -13,6 +13,7 @@ var normal = map[rune]string{
 }
 
 var special = map[termbox.Key]string{
+	termbox.KeyEsc:        CommandQuit,
 	termbox.KeySpace:      CommandToggleCommander,
 	termbox.KeyArrowUp:    CommandScrollUp,
 	termbox.KeyArrowDown:  CommandScrollDown,
@@ -20,7 +21,7 @@ var special = map[termbox.Key]string{
 	termbox.KeyArrowRight: CommandNextChapter,
 }
 
-func (c *Commander) executeSpecial(commandName string) {
+func (c *Commander) executeSpecial(commandName string, cancel context.CancelFunc) {
 	switch commandName {
 	case CommandToggleCommander:
 		c.StateMachine.Transition(stateMachine.EnterCommandMode)
@@ -33,6 +34,8 @@ func (c *Commander) executeSpecial(commandName string) {
 		// prevChapter(cancel)
 	case CommandNextChapter:
 		// nextChapter(cancel)
+	case CommandQuit:
+		quit(cancel)
 	}
 }
 
@@ -51,12 +54,11 @@ func (c *Commander) handleReadingModeInput(ev termbox.Event, cancel context.Canc
 		return
 	}
 	if commandName, exists := special[ev.Key]; exists {
-		c.executeSpecial(commandName)
+		c.executeSpecial(commandName, cancel)
 	} else if commandName, exists := normal[ev.Ch]; exists {
 		c.executeNormal(commandName, cancel)
 	}
 }
-
 
 func quit(cancel context.CancelFunc) {
 	cancel()
