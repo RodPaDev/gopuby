@@ -22,13 +22,13 @@ func (book *Book) LoadBook(path string) error {
 		return err
 	}
 
+	*book.CurrentTextPage = 1
+	*book.CurrentChapterIndex = 0
+
 	if stat.IsDir() {
-		println("0")
 		return book.LoadUnzippedBook(path)
 	} else {
-		println("0")
 		dirPath := Open(path)
-		println("1")
 		return book.LoadUnzippedBook(dirPath)
 	}
 

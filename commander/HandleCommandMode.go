@@ -33,6 +33,13 @@ func (c *Commander) handleCommandModeInput(ev termbox.Event, cancel context.Canc
 			switch command {
 			case CommandToggleCommander:
 				exitCommandMode(c)
+			case CommandOpenFile:
+				if len(commandSplit) != 2 {
+					handleUnknownCommand(c, &command)
+					return
+				}
+				c.Book.LoadBook(commandSplit[1])
+				exitCommandMode(c)
 			case CommandScrollUp:
 				// command to scroll up
 			case CommandScrollDown:
