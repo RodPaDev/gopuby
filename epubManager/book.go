@@ -96,5 +96,7 @@ func (book *Book) MoveChapter(direction int) error {
 
 	book.CurrentText = str
 
+	*book.CurrentTextPage = 1
+
 	return nil
 }
