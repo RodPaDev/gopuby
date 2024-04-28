@@ -3,13 +3,13 @@ Immediate
 - [x] Unzip epubs
 - [x] Parse HTML to properly formatted text
   - [ ] Add support for links
-  - [ ] Add support for images (iTerm2) only
+  - [ ] Add support for images (iTerm2) and other terminals use ASCII art conversion
 - [x] Render text using termbox
 - [x] Load ToC into a struct
 - [x] Hotkey Basic System
 - [x] Implement Commander Bottom Bar
 - [x] Add Chapter Navigation
-- [ ] Scroll through a book completely
+- [x] Scroll through a book completely
 - [ ] Implement ToC Screen
 - [ ] Implement Config Manager
 - [ ] Add Database to Keep track of read books
