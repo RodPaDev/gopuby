@@ -2,6 +2,7 @@ package commander
 
 import (
 	"context"
+	"gopuby/epubManager"
 	"gopuby/input"
 	"gopuby/renderer"
 	"gopuby/stateMachine"
@@ -24,16 +25,27 @@ const (
 )
 
 type Commander struct {
-	Renderer     renderer.Renderer
-	ParsedText   string
-	StateMachine stateMachine.StateMachine
+	// Global
+	Renderer     *renderer.Renderer
+	StateMachine *stateMachine.StateMachine
+	Book         *epubManager.Book
 
-	input    input.Input
+	// Local
+	input    *input.Input
 	hasError bool
 }
 
-func New() *Commander {
-	c := &Commander{}
+func New(
+	renderer *renderer.Renderer,
+	stateMachine *stateMachine.StateMachine,
+	book *epubManager.Book,
+) *Commander {
+	c := &Commander{
+		Renderer:     renderer,
+		StateMachine: stateMachine,
+		Book:         book,
+		input:        &input.Input{},
+	}
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
@@ -41,8 +53,6 @@ func New() *Commander {
 	termbox.SetInputMode(termbox.InputEsc)
 	termbox.SetOutputMode(termbox.OutputNormal)
 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-	c.Renderer = *renderer.New()
-	c.StateMachine = *stateMachine.New()
 	return c
 }
 

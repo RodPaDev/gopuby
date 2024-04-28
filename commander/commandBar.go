@@ -38,7 +38,7 @@ func (c *Commander) ClearCommandBar() {
 	for i := 0; i < cols; i++ {
 		termbox.SetCell(i, rows-2, ' ', termbox.ColorWhite, termbox.ColorDefault)
 	}
-	c.Renderer.Render(&c.ParsedText)
+	c.Renderer.Render(&c.Book.CurrentText)
 	termbox.SetCursor(0, 0)
 	termbox.HideCursor()
 	termbox.Flush()

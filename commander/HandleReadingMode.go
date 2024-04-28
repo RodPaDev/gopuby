@@ -27,13 +27,19 @@ func (c *Commander) executeSpecial(commandName string, cancel context.CancelFunc
 		c.StateMachine.Transition(stateMachine.EnterCommandMode)
 		c.DrawCommandBar()
 	case CommandScrollUp:
-		c.Renderer.ScrollUp(&c.ParsedText)
+		c.Renderer.ScrollUp(&c.Book.CurrentText)
 	case CommandScrollDown:
-		c.Renderer.ScrollDown(&c.ParsedText)
+		c.Renderer.ScrollDown(&c.Book.CurrentText)
 	case CommandPrevChapter:
-		// prevChapter(cancel)
+		if err := c.Book.MoveChapter(-1); err != nil {
+			panic(err)
+		}
+		c.Renderer.Render(&c.Book.CurrentText)
 	case CommandNextChapter:
-		// nextChapter(cancel)
+		if err := c.Book.MoveChapter(1); err != nil {
+			panic(err)
+		}
+		c.Renderer.Render(&c.Book.CurrentText)
 	case CommandQuit:
 		quit(cancel)
 	}

@@ -6,11 +6,23 @@ import (
 
 type Renderer struct {
 	renderBuffer string
-	currentPage  int
+	currentPage  *int
 }
 
-func New() *Renderer {
-	return &Renderer{"", 1}
+func New(page *int) *Renderer {
+	return &Renderer{"", page}
+}
+
+func RenderEndText(bottomRow bool) {
+	cols, rows := termbox.Size()
+	str := "Use Left and Right arrow keys to navigate chapters"
+
+	start := (cols - len(str)) / 2
+	for i, char := range str {
+		termbox.SetCell(start+i, rows-1, char, termbox.ColorWhite, termbox.ColorDefault)
+	}
+
+	termbox.Flush()
 }
 
 func (r *Renderer) Render(text *string) {
@@ -20,10 +32,11 @@ func (r *Renderer) Render(text *string) {
 
 	// Calculate the indices for the current page
 	pageSize := rows * cols
-	currentPageStart := (r.currentPage - 1) * pageSize
+	currentPageStart := (*r.currentPage - 1) * pageSize
 
 	// Make sure we start within the text length
 	if currentPageStart >= len(*text) {
+		RenderEndText(false)
 		termbox.Flush() // Nothing more to display
 		return
 	}
@@ -31,6 +44,7 @@ func (r *Renderer) Render(text *string) {
 	currentPageEnd := currentPageStart + pageSize
 	if currentPageEnd > len(*text) {
 		currentPageEnd = len(*text)
+		defer RenderEndText(true)
 	}
 
 	currCol, currRow := 0, 0
@@ -63,18 +77,18 @@ func (r *Renderer) Render(text *string) {
 }
 
 func (r *Renderer) ScrollUp(text *string) {
-	r.currentPage--
-	if r.currentPage < 1 {
-		r.currentPage = 1
+	*r.currentPage -= 1
+	if *r.currentPage < 1 {
+		*r.currentPage = 1
 	}
 	r.Render(text)
 }
 
 func (r *Renderer) ScrollDown(text *string) {
-	r.currentPage++
+	*r.currentPage++
 	r.Render(text)
 }
 
 func (r *Renderer) GetBuffer() *string {
-    return &r.renderBuffer
+	return &r.renderBuffer
 }

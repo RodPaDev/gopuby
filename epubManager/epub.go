@@ -3,6 +3,7 @@ package epubManager
 import (
 	"fmt"
 	"gopuby/utils"
+	"os"
 	"path/filepath"
 )
 
@@ -12,7 +13,7 @@ const (
 	TMP_UNPROCESSED_DIR = TMP_DIR + "/unprocessed"
 )
 
-func Open(path string) {
+func Open(path string) string {
 	// Uncompress the epub file
 	unzipEpub(path, TMP_UNPROCESSED_DIR)
 
@@ -20,6 +21,12 @@ func Open(path string) {
 	metadata, err := GetMetadata(TMP_UNPROCESSED_DIR)
 	if err != nil {
 		fmt.Print(err)
+	}
+
+	// check if there is already a processed directory for the epub
+	processedDir := filepath.Join(TMP_DIR, metadata.ID)
+	if _, err := os.Stat(processedDir); err == nil {
+		return processedDir
 	}
 
 	// Ensure the books directory exists
@@ -38,4 +45,6 @@ func Open(path string) {
 	if err := utils.MoveExec(TMP_UNPROCESSED_DIR, dstTmpPath); err != nil {
 		fmt.Print(err)
 	}
+
+	return dstTmpPath
 }

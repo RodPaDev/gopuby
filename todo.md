@@ -7,8 +7,8 @@ Immediate
 - [x] Render text using termbox
 - [x] Load ToC into a struct
 - [x] Hotkey Basic System
-- [ ] Implement Commander Bottom Bar
-- [ ] Command should use ePub Manager to load chapters on the fly
+- [x] Implement Commander Bottom Bar
+- [x] Add Chapter Navigation
 - [ ] Scroll through a book completely
 - [ ] Implement ToC Screen
 - [ ] Implement Config Manager

@@ -7,6 +7,13 @@ import (
 	"golang.org/x/net/html"
 )
 
+type PageType string
+
+const (
+	BodyMatter PageType = "bodymatter"
+	TitlePage  PageType = "titlepage"
+)
+
 type RenderedText struct {
 	Text *strings.Builder
 	Tag  string
@@ -14,6 +21,7 @@ type RenderedText struct {
 
 type HtmlPage struct {
 	Title string
+	Type  PageType
 	Body  []RenderedText
 }
 
@@ -21,6 +29,20 @@ type HtmlPage struct {
 // Todo: images should be rendered as [image](url) and if terminal supports inline images, then it should be rendered as images otherwise clickable links
 
 func (hp *HtmlPage) BuildText(n *html.Node, inPreCode bool, currentIndex *int) {
+
+	if n.Type == html.ElementNode && n.Data == "body" {
+		// take the epub:type attribute from the body tag
+		for _, a := range n.Attr {
+			if a.Key == "epub:type" {
+				if a.Val == string(BodyMatter) {
+					hp.Type = BodyMatter
+				} else if a.Val == string(TitlePage) {
+					hp.Type = TitlePage
+				}
+			}
+		}
+	}
+
 	if n.Type == html.TextNode {
 		if n.Parent != nil && (n.Parent.Data == "script" || n.Parent.Data == "style") {
 			return
