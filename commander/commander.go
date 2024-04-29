@@ -2,12 +2,13 @@ package commander
 
 import (
 	"context"
-	"gopuby/epubManager"
-	"gopuby/input"
-	"gopuby/renderer"
-	"gopuby/stateMachine"
-	"gopuby/utils"
 	"time"
+
+	"github.com/rodpadev/gopuby/epubManager"
+	"github.com/rodpadev/gopuby/input"
+	"github.com/rodpadev/gopuby/renderer"
+	"github.com/rodpadev/gopuby/stateMachine"
+	"github.com/rodpadev/gopuby/utils"
 
 	"github.com/nsf/termbox-go"
 )

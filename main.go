@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"gopuby/commander"
-	"gopuby/db"
-	"gopuby/epubManager"
-	"gopuby/renderer"
-	"gopuby/stateMachine"
 	"os"
+
+	"github.com/rodpadev/gopuby/commander"
+	"github.com/rodpadev/gopuby/db"
+	"github.com/rodpadev/gopuby/epubManager"
+	"github.com/rodpadev/gopuby/renderer"
+	"github.com/rodpadev/gopuby/stateMachine"
 
 	"github.com/nsf/termbox-go"
 	// "github.com/nsf/termbox-go"

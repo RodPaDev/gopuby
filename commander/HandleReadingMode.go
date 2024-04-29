@@ -2,8 +2,9 @@ package commander
 
 import (
 	"context"
-	"gopuby/db"
-	"gopuby/stateMachine"
+
+	"github.com/rodpadev/gopuby/db"
+	"github.com/rodpadev/gopuby/stateMachine"
 
 	"github.com/nsf/termbox-go"
 )

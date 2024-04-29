@@ -1,11 +1,12 @@
 package epubManager
 
 import (
-	"gopuby/db"
-	"gopuby/htmlParse"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/rodpadev/gopuby/db"
+	"github.com/rodpadev/gopuby/htmlParse"
 )
 
 type Book struct {

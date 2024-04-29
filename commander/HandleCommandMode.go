@@ -3,8 +3,9 @@ package commander
 import (
 	"context"
 	"fmt"
-	"gopuby/stateMachine"
 	"strings"
+
+	"github.com/rodpadev/gopuby/stateMachine"
 
 	"github.com/nsf/termbox-go"
 )

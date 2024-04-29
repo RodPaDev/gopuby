@@ -1,4 +1,4 @@
-module gopuby
+module github.com/rodpadev/gopuby
 
 go 1.21.3
 

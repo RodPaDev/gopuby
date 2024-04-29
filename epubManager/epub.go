@@ -2,9 +2,10 @@ package epubManager
 
 import (
 	"fmt"
-	"gopuby/utils"
 	"os"
 	"path/filepath"
+
+	"github.com/rodpadev/gopuby/utils"
 )
 
 const (
