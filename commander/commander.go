@@ -13,17 +13,18 @@ import (
 )
 
 const (
+	CommandHelp            = "help"
 	CommandToggleCommander = "toggleCommander"
-	CommandOpenFile        = "openFile"    // commander only
-	CommandList            = "list"        // commander only
-	CommandRemove          = "remove"      // commander only
-	CommandQuit            = "quit"        // commander, reading
-	CommandScrollUp        = "scrollUp"    // commander, reading, modal
-	CommandScrollDown      = "scrollDown"  // commander, reading, modal
-	CommandNextChapter     = "nextChapter" // commander, reading
-	CommandPrevChapter     = "prevChapter" // commander, reading
-	CommandToggleToC       = "toggleToC"   // commander, reading, modal
-	CommandFind            = "find"        // commander, possibly a search view in modal
+	CommandOpenFile        = "openFile"
+	CommandList            = "list"
+	CommandRemove          = "remove"
+	CommandQuit            = "quit"
+	CommandScrollUp        = "scrollUp"
+	CommandScrollDown      = "scrollDown"
+	CommandNextChapter     = "nextChapter"
+	CommandPrevChapter     = "prevChapter"
+	CommandToggleToC       = "toggleToC"
+	CommandFind            = "find"
 )
 
 type Commander struct {

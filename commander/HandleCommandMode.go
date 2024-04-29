@@ -28,10 +28,13 @@ func (c *Commander) handleCommandModeInput(ev termbox.Event, cancel context.Canc
 			}
 			commandSplit := strings.Split(*input, " ")
 			command := commandSplit[0]
-			// args := commandSplit[1:]
 
 			switch command {
 			case CommandToggleCommander:
+				if c.Book.Metadata.ID == "" {
+					handleNoBookLoaded(c)
+					return
+				}
 				exitCommandMode(c)
 			case CommandOpenFile:
 				if len(commandSplit) != 2 {
@@ -40,21 +43,19 @@ func (c *Commander) handleCommandModeInput(ev termbox.Event, cancel context.Canc
 				}
 				c.Book.LoadBook(commandSplit[1])
 				exitCommandMode(c)
-			case CommandScrollUp:
-				// command to scroll up
-			case CommandScrollDown:
-				// command to scroll down
-			case CommandPrevChapter:
-				// command to go to previous chapter
-			case CommandNextChapter:
-				// command to go to next chapter
 			case CommandQuit:
 				quit(cancel)
+			case CommandHelp:
+				c.DrawHelpScreen()
 			default:
 				handleUnknownCommand(c, &command)
 			}
 
 		case termbox.KeyEsc:
+			if c.Book.Metadata.ID == "" {
+				handleNoBookLoaded(c)
+				return
+			}
 			exitCommandMode(c)
 		case termbox.KeyArrowUp, termbox.KeyArrowDown:
 			// no. you get one line and if you typo, you backspace. git gud
@@ -96,12 +97,21 @@ func handleBackspace(c *Commander, x, y int) {
 	}
 }
 
+func handleNoBookLoaded(c *Commander) {
+	errorMsg := fmt.Sprintf("No book loaded. Use '%s' to load a book or '%s' to list books", CommandOpenFile, CommandList)
+	drawError(c, errorMsg)
+}
+
 func handleUnknownCommand(c *Commander, command *string) {
+	errorMsg := fmt.Sprintf("Unknown command: %s", *command)
+	drawError(c, errorMsg)
+}
+
+func drawError(c *Commander, errorMsg string) {
 	c.DrawCommandBar()
 	_, rows := termbox.Size()
 	termbox.HideCursor()
-	err := fmt.Sprintf("Command not found: %s", *command)
-	for i, ch := range err {
+	for i, ch := range errorMsg {
 		termbox.SetCell(i+2, rows-1, ch, termbox.ColorRed, termbox.ColorDefault)
 	}
 	termbox.Flush()

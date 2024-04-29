@@ -55,6 +55,7 @@ func run() error {
 		// transition state to commander
 		g.StateMachine.Transition(stateMachine.EnterCommandMode)
 		g.Commander.DrawCommandBar()
+		g.Commander.DrawHelpScreen()
 		// the user then enters command to either list books or open a book from a path
 	} else if len(args) == 1 {
 		path := args[0]
@@ -76,43 +77,4 @@ func main() {
 		os.Exit(1)
 	}
 
-	// const path = "books/tmp/6c088701-fa14-4dc6-b33e-c2749d99d647/EPUB/text/ch003.xhtml"
-	// str, err := htmlParse.ParseHtml(path)
-	// if err != nil {
-	// 	panic(err)
-	// }
-	// g.Commander.ParsedText = str
-	// defer termbox.Close()
-	// g.Commander.Renderer.Render(&g.Commander.ParsedText)
-
-	// g.Commander.Run()
-
 }
-
-// 	c := commander.New()
-// 	termbox.Clear(termbox.ColorDefault, termbox.ColorDefault)
-
-// 	const path = "books/tmp/6c088701-fa14-4dc6-b33e-c2749d99d647/EPUB/text/ch003.xhtml"
-// 	str, err := htmlParse.ParseHtml(path)
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	c.ParsedText = str
-// 	defer termbox.Close()
-// 	c.Renderer.Render(&c.ParsedText)
-
-// 	c.Run()
-// }
-
-// func main() {
-// 	path := "books/tmp/6c088701-fa14-4dc6-b33e-c2749d99d647"
-// 	e, _ := epubManager.GetMetadata(path)
-// 	t, _ := epubManager.GetTableOfContents(path)
-
-// 	println("Title:", e.Title)
-// 	println("Author:", e.Author)
-// 	println("Language:", e.Lang)
-// 	println("Date:", e.Date)
-// 	println("ID:", e.ID)
-
-// }
