@@ -1,4 +1,4 @@
-****# GoPuby - Terminal EPUB Reader
+# GoPuby - Terminal EPUB Reader
 
 ### Description
 GoPuby is a terminal-based EPUB reader designed to allow users to read and interact with EPUB files directly in their terminal. The application supports text and image rendering and provides a seamless, scroll-based reading experience. It is built with Go.
