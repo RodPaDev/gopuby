@@ -23,5 +23,3 @@
 - [ ] Add support for images (iTerm2) and other terminals use ASCII art conversion
 - [ ] Implement ToC Screen
 - [ ] Implement Config Manager
-
-For now I am taking a break from this project. I will come back to it later. The only thing I will do is fix the rendering of text.
