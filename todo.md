@@ -10,7 +10,8 @@ Immediate
 - [x] Implement Commander Bottom Bar
 - [x] Add Chapter Navigation
 - [x] Scroll through a book completely
+- [x] Load book from previous state
+- [x] Add Database to Keep track of read books
 - [ ] Implement ToC Screen
 - [ ] Implement Config Manager
-- [ ] Add Database to Keep track of read books
 - [ ] Implement open, list and other commands

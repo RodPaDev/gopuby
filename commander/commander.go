@@ -6,6 +6,8 @@ import (
 	"gopuby/input"
 	"gopuby/renderer"
 	"gopuby/stateMachine"
+	"gopuby/utils"
+	"time"
 
 	"github.com/nsf/termbox-go"
 )
@@ -31,8 +33,9 @@ type Commander struct {
 	Book         *epubManager.Book
 
 	// Local
-	input    *input.Input
-	hasError bool
+	input                 *input.Input
+	hasError              bool
+	debouncedUpdateDBItem func()
 }
 
 func New(
@@ -46,6 +49,7 @@ func New(
 		Book:         book,
 		input:        &input.Input{},
 	}
+	c.debouncedUpdateDBItem = utils.Debounce(c.updateDBItem, 500*time.Millisecond)
 	err := termbox.Init()
 	if err != nil {
 		panic(err)

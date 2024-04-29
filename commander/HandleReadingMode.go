@@ -2,6 +2,7 @@ package commander
 
 import (
 	"context"
+	"gopuby/db"
 	"gopuby/stateMachine"
 
 	"github.com/nsf/termbox-go"
@@ -27,19 +28,29 @@ func (c *Commander) executeSpecial(commandName string, cancel context.CancelFunc
 		c.StateMachine.Transition(stateMachine.EnterCommandMode)
 		c.DrawCommandBar()
 	case CommandScrollUp:
-		c.Renderer.ScrollUp(&c.Book.CurrentText)
+		if err := c.Book.MovePage(-1); err != nil {
+			panic(err)
+		}
+		c.Renderer.Render(&c.Book.CurrentText)
+		c.updateDBItem()
 	case CommandScrollDown:
-		c.Renderer.ScrollDown(&c.Book.CurrentText)
+		if err := c.Book.MovePage(1); err != nil {
+			panic(err)
+		}
+		c.Renderer.Render(&c.Book.CurrentText)
+		c.updateDBItem()
 	case CommandPrevChapter:
 		if err := c.Book.MoveChapter(-1); err != nil {
 			panic(err)
 		}
 		c.Renderer.Render(&c.Book.CurrentText)
+		c.updateDBItem()
 	case CommandNextChapter:
 		if err := c.Book.MoveChapter(1); err != nil {
 			panic(err)
 		}
 		c.Renderer.Render(&c.Book.CurrentText)
+		c.updateDBItem()
 	case CommandQuit:
 		quit(cancel)
 	}
@@ -68,4 +79,10 @@ func (c *Commander) handleReadingModeInput(ev termbox.Event, cancel context.Canc
 
 func quit(cancel context.CancelFunc) {
 	cancel()
+}
+
+func (c *Commander) updateDBItem() {
+	db.GlobalDB.Book.CurrentPage = *c.Book.CurrentTextPage
+	db.GlobalDB.Book.CurrentChapter = *c.Book.CurrentChapterIndex
+	db.GlobalDB.UpdateBook(*db.GlobalDB.Book)
 }

@@ -10,7 +10,9 @@ type Renderer struct {
 }
 
 func New(page *int) *Renderer {
-	return &Renderer{"", page}
+	r := Renderer{}
+	r.currentPage = page
+	return &r
 }
 
 func RenderEndText(bottomRow bool) {
@@ -74,19 +76,6 @@ func (r *Renderer) Render(text *string) {
 	}
 
 	termbox.Flush()
-}
-
-func (r *Renderer) ScrollUp(text *string) {
-	*r.currentPage -= 1
-	if *r.currentPage < 1 {
-		*r.currentPage = 1
-	}
-	r.Render(text)
-}
-
-func (r *Renderer) ScrollDown(text *string) {
-	*r.currentPage++
-	r.Render(text)
 }
 
 func (r *Renderer) GetBuffer() *string {

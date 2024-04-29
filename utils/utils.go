@@ -7,6 +7,8 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"sync"
+	"time"
 )
 
 func EnsureDir(dirName string) error {
@@ -75,4 +77,20 @@ func MoveExec(src string, dst string) error {
 		return fmt.Errorf("failed to move file: %v", err)
 	}
 	return nil
+}
+
+func Debounce(fn func(), wait time.Duration) func() {
+	var mu sync.Mutex
+	var timer *time.Timer
+
+	return func() {
+		mu.Lock()
+		defer mu.Unlock()
+
+		if timer != nil {
+			timer.Stop()
+		}
+
+		timer = time.AfterFunc(wait, fn)
+	}
 }

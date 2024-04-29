@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"gopuby/commander"
+	"gopuby/db"
 	"gopuby/epubManager"
 	"gopuby/renderer"
 	"gopuby/stateMachine"
@@ -39,6 +40,7 @@ func New() *Gopuby {
 }
 
 func run() error {
+	db.New("gopuby.db")
 	g := New()
 	defer termbox.Close()
 	termbox.SetInputMode(termbox.InputEsc)
@@ -59,9 +61,8 @@ func run() error {
 		if err := g.Book.LoadBook(path); err != nil {
 			return err
 		}
+		g.Renderer.Render(&g.Book.CurrentText)
 	}
-
-	g.Renderer.Render(&g.Book.CurrentText)
 
 	g.Commander.Run()
 

@@ -1,6 +1,7 @@
 package epubManager
 
 import (
+	"gopuby/db"
 	"gopuby/htmlParse"
 	"os"
 	"path/filepath"
@@ -25,13 +26,44 @@ func (book *Book) LoadBook(path string) error {
 	*book.CurrentTextPage = 1
 	*book.CurrentChapterIndex = 0
 
-	if stat.IsDir() {
-		return book.LoadUnzippedBook(path)
-	} else {
-		dirPath := Open(path)
-		return book.LoadUnzippedBook(dirPath)
+	unzippedPath := filepath.Join(TMP_DIR, book.Metadata.ID)
+
+	bookInDB := false
+	if _, err := os.Stat(unzippedPath); err == nil {
+		bookDB, err := db.GlobalDB.GetBook(book.Metadata.ID)
+		if err != nil {
+			// ignore error
+		}
+		if bookDB.ID != "" {
+			bookInDB = true
+			*book.CurrentChapterIndex = bookDB.CurrentChapter
+			*book.CurrentTextPage = bookDB.CurrentPage
+		}
 	}
 
+	if stat.IsDir() {
+		err = book.LoadUnzippedBook(path)
+	} else {
+		dirPath := Open(path)
+		err = book.LoadUnzippedBook(dirPath)
+	}
+
+	if err != nil {
+		return err
+	}
+
+	if !bookInDB {
+		newBook := db.BookDB{
+			ID:             book.Metadata.ID,
+			Title:          book.Metadata.Title,
+			CurrentChapter: *book.CurrentChapterIndex,
+			CurrentPage:    *book.CurrentTextPage,
+		}
+		db.GlobalDB.CreateBook(&newBook)
+		db.GlobalDB.Book = &newBook
+	}
+
+	return nil
 }
 
 func (book *Book) LoadUnzippedBook(dir string) error {
@@ -97,6 +129,21 @@ func (book *Book) MoveChapter(direction int) error {
 	book.CurrentText = str
 
 	*book.CurrentTextPage = 1
+
+	return nil
+}
+
+func (book *Book) MovePage(direction int) error {
+	if book.CurrentTextPage == nil {
+		book.CurrentTextPage = new(int)
+		*book.CurrentTextPage = 1
+	} else {
+		*book.CurrentTextPage += direction
+	}
+
+	if *book.CurrentTextPage < 1 {
+		*book.CurrentTextPage = 1
+	}
 
 	return nil
 }

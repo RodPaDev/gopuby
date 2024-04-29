@@ -5,3 +5,5 @@ books
 # Ignore go work directory
 go.work
 
+# sqlite database files
+*.db
