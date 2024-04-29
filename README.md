@@ -1,84 +1,37 @@
 ****# GoPuby - Terminal EPUB Reader
 
 ### Description
-GoPuby is a terminal-based EPUB reader designed to allow users to read and interact with EPUB files directly in their terminal. The application supports text and image rendering and provides a seamless, scroll-based reading experience. It is built with Go and designed to be lightweight and highly customizable.
+GoPuby is a terminal-based EPUB reader designed to allow users to read and interact with EPUB files directly in their terminal. The application supports text and image rendering and provides a seamless, scroll-based reading experience. It is built with Go.
 
-###  TechStack
-- **Go**
-- **BBolt** (Lightweight k,v DB)
-- **YAML**: (Configuration Files)
+## Installation
 
-### Key Features
-1. **Opening EPUB Files**: Load EPUB files by specifying the file as a command-line argument or through an interactive command within the application.
-2. **Rendering Content**: Display text and images in the terminal, utilizing iTerm2's capabilities on macOS for image rendering. (Other terminals will contain a link to the image)
-3. **Scroll-based Navigation**: Navigate through content using simple keyboard commands.
-4. **Table of Contents Interaction**: Access and interact with a sidebar displaying the book's table of contents, with functionality to mark sections as read.
-5. **Command Bar**: Use a command bar for additional functionality such as searching text and jumping to sections.
-6. **Customization**: Adjust visual settings like font size, color, and family through a configuration file.
+To install GoPuby, you will need to have Go installed on your machine. You can download and install Go from the official website: https://golang.org/dl/
 
-### Configuration
-- Configuration settings such as `FontSize`, `FontColor`, and `FontFamily` will be managed through a YAML file, allowing users to customize their reading experience based on personal preferences.
+Once you have Go installed, you can install GoPuby by running the following command:
 
-### State Management
-- **BookSchema**:
-  - **id**: Hash of the book as the unique identifier.
-  - **filePath**: Path to the EPUB file.
-  - **completedSections**: Array of sections marked as read.
-  - **currentPos**: Last read position in the book to resume reading.
-  - **createdAt**: Timestamp when the user first opened the book.
-  - **updatedAt**: Most recent timestamp when the user interacted with the book.
-  - **finishedAt**: Timestamp when the user finished reading the book.
-  - **config**: Custom settings such as font size or color specific to each book.
+```bash
+go get github.com/rodpadev/gopuby
+```
 
-### User Data Storage Locations
-- **Windows**: Stored in `C:\Users\<username>\AppData\Local\GoPuby\`
-- **macOS/Linux**:  Stored in `~/.local/share/GoPuby/` or `~/.config/GoPuby/`
+This will download and install the GoPuby package and its dependencies.
 
 ## Usage
 
-To open an epub run
+To use GoPuby, you can run the following command:
+
 ```bash
-gopuby <filepath>
+gopuby
 ```
-Alternatively you can run `gopuby` and once open hit `space` and type `:open <filepath>`
-
-# Commander
-
-To open a commander you can use the `spacebar` key on your keyboard
-
-## Commander Commands
-| Command           | Description                                             |
-| ----------------- | ------------------------------------------------------- |
-| `:open(filepath)` | Open an EPUB file specified by the file path.           |
-| `:list`           | Lists books in library that have been previously opened |
-| `:remove(input)`  | Removes book from library                               |
-
-Any command listed below in the hotkeys can be used in the **Commander**
-
-## Hotkeys
+You will be prompted to enter the path to the EPUB file you want to read. Once you enter the path, GoPuby will load the EPUB file and display the text content in your terminal.
 
 
-### Reading and Navigation
-| Hotkey    | Action         | Description                           |
-| --------- | -------------- | ------------------------------------- |
-| ↑         | `:scrollUp`    | Scroll up through the EPUB content.   |
-| ↓         | `:scrollDown`  | Scroll down through the EPUB content. |
-| →         | `:nextSection` | Go to the next section.               |
-| ←         | `:prevSection` | Go to the previous section.           |
-| SHIFT + → | `:nextChapter` | Go to the next chapter.               |
-| SHIFT + ← | `:prevChapter` | Go to the previous section.           |
+Alternatively, you can specify the path to the EPUB file directly in the command line:
+```bash
+gopuby <path-to-epub-file>
+```
 
-### Table of Contents Interaction
-| Hotkey | Action                 | Description                                          |
-| ------ | ---------------------- | ---------------------------------------------------- |
-| t      | `:toggleToC`           | Show or hide the sidebar with the table of contents. |
-| r      | `:toggleRead(section)` | Toggle the read status of the selected section.      |
+## What's Next?
+A lot more features are planned you can look at the [todo.md](todo.md) file for more information.
+I have learned a lot form this project, the main focus was to write another project in Golang and I have achieved that. 
 
-### Command Bar Features
-| Hotkey | Action                    | Description                                       |
-| ------ | ------------------------- | ------------------------------------------------- |
-| Space  | Open Command Bar          | Activate the command bar to input commands.       |
-| `s`    | `:jumpToSection(section)` | Input `s` followed by the section number or name. |
-| `/`    | `:find(input)`            | Search for text in the whole book                 |
-
-
+I still want this to be feature complete and I will come back to it at some point (or not) and finish it.
