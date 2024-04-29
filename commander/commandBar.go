@@ -19,11 +19,11 @@ var commandDescriptions = []string{
 	formatCommandDescriptionNoParams(CommandHelp, "Show this help screen"),
 	formatCommandDescriptionNoParams(CommandToggleCommander, "Toggle the command bar"),
 	formatCommandDescriptionParams(CommandOpenFile, "<path>", "Open a file (only .epub is supported)"),
-	formatCommandDescriptionNoParams(CommandList, "Opens interactive list of books"),
-	formatCommandDescriptionParams(CommandRemove, "<book name>", "Remove a book from the library"),
+	// formatCommandDescriptionNoParams(CommandList, "Opens interactive list of books"),
+	// formatCommandDescriptionParams(CommandRemove, "<book name>", "Remove a book from the library"),
+	// formatCommandDescriptionNoParams(CommandToggleToC, "Toggle the Table of Contents"),
+	// formatCommandDescriptionParams(CommandFind, "<search term>", "Search for a term in the book"),
 	formatCommandDescriptionNoParams(CommandQuit, "Quit the application"),
-	formatCommandDescriptionNoParams(CommandToggleToC, "Toggle the Table of Contents"),
-	formatCommandDescriptionParams(CommandFind, "<search term>", "Search for a term in the book"),
 }
 
 func (c *Commander) DrawCommandBar() {

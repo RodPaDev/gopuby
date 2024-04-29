@@ -58,9 +58,9 @@ func (c *Commander) handleCommandModeInput(ev termbox.Event, cancel context.Canc
 			}
 			exitCommandMode(c)
 		case termbox.KeyArrowUp, termbox.KeyArrowDown:
-			// no. you get one line and if you typo, you backspace. git gud
-		case termbox.KeyArrowLeft, termbox.KeyArrowRight:
 			// arrow up and down will be to traverse the command history
+		case termbox.KeyArrowLeft, termbox.KeyArrowRight:
+			// no. you get one line and if you typo, you backspace. git gud
 		case termbox.KeyBackspace, termbox.KeyBackspace2:
 			handleBackspace(c, x, y)
 		case termbox.KeySpace:
@@ -98,7 +98,7 @@ func handleBackspace(c *Commander, x, y int) {
 }
 
 func handleNoBookLoaded(c *Commander) {
-	errorMsg := fmt.Sprintf("No book loaded. Use '%s' to load a book or '%s' to list books", CommandOpenFile, CommandList)
+	errorMsg := fmt.Sprintf("No book loaded. Use '%s' to load a book", CommandOpenFile)
 	drawError(c, errorMsg)
 }
 

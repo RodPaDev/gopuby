@@ -9,7 +9,7 @@ import (
 )
 
 var normal = map[rune]string{
-	't': CommandToggleToC,
+	// 't': CommandToggleToC,
 	'q': CommandQuit,
 }
 
@@ -58,8 +58,6 @@ func (c *Commander) executeSpecial(commandName string, cancel context.CancelFunc
 
 func (c *Commander) executeNormal(commandName string, cancel context.CancelFunc) {
 	switch commandName {
-	case CommandToggleToC:
-		// toggleTOC(cancel)
 	case CommandQuit:
 		quit(cancel)
 
